@@ -54,8 +54,8 @@ const CardLandingPage: React.FC<CardProps> = ({
   return (
     <div
       style={{
-        width: hovered ? hoveredWidth : initialWidth,
-        height: hovered ? hoveredHeight : initialHeight,
+        width: initialWidth,
+        height: initialHeight,
         backgroundColor: "lightsalmon",
         borderRadius: "15px",
         zoom: hovered ? "normal" : "initial",

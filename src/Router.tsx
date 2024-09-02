@@ -9,6 +9,10 @@ import AdminPage from "pages/AdminPage";
 import DonatorInitialPage from "pages/DonatorInitialPage";
 import AuthenticatedLayout from "Layouts/AuthenticatedLayout";
 import PetsManagementPage from "pages/PetsManagement";
+import InterestedPetsManagementPage from "pages/InterestedPetsManagement";
+import SelfPetsManagementPage from "pages/SelfPagePetsManagement";
+import InterestedFormulary from "pages/InteretedFormulary";
+import NewPetsManagementPage from "pages/NewPet";
 
 const AppRouter: React.FC = () => {
   const { isAuthenticated, authUser } = useAuth();
@@ -37,6 +41,22 @@ const AppRouter: React.FC = () => {
                 <Routes>
                   <Route path="/user" element={<DonatorInitialPage />} />
                   <Route path="/user/pets" element={<PetsManagementPage />} />
+                  <Route
+                    path="/user/interessados"
+                    element={<InterestedPetsManagementPage />}
+                  />
+                  <Route
+                    path="/user/admin"
+                    element={<SelfPetsManagementPage />}
+                  />
+                  <Route
+                    path="/user/formulario-de-interesse"
+                    element={<InterestedFormulary />}
+                  />
+                  <Route
+                    path="/user/novo-pet"
+                    element={<NewPetsManagementPage />}
+                  />
                   <Route path="/donator" element={<AdminPage />} />
                 </Routes>
               </AuthenticatedLayout>

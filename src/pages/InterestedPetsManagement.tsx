@@ -26,7 +26,7 @@ const mockData = [
   // Add more items as needed
 ];
 
-const PetsManagementPage: React.FC = () => {
+const InterestedPetsManagementPage: React.FC = () => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -62,8 +62,8 @@ const PetsManagementPage: React.FC = () => {
         gap: "25px",
       }}
     >
-      <Button style={{ alignSelf: "flex-end", width: "150px" }}>
-        Novo PET
+      <Button style={{ alignSelf: "flex-end", width: "200px" }}>
+        Editar Formulário de Interesse
       </Button>
       <Search
         placeholder="Search by description"
@@ -95,4 +95,4 @@ const PetsManagementPage: React.FC = () => {
   );
 };
 
-export default PetsManagementPage;
+export default InterestedPetsManagementPage;

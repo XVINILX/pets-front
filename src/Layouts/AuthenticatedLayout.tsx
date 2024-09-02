@@ -41,17 +41,17 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
             {
               key: "1",
               icon: <UserOutlined />,
-              label: "nav 1",
+              label: "Pets",
             },
             {
               key: "2",
               icon: <VideoCameraOutlined />,
-              label: "nav 2",
+              label: "Contatos",
             },
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: "nav 3",
+              label: "Editar Página",
             },
           ]}
         />
@@ -71,7 +71,7 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
             }}
           />
         </Layout.Header>
-        <Layout.Content>{children}</Layout.Content>
+        <Layout.Content style={{ padding: 50 }}>{children}</Layout.Content>
         <Layout.Footer>Layout.Footer</Layout.Footer>
       </Layout>
     </Layout>

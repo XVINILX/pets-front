@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { List, Pagination, Input, Button } from "antd";
 import CardLandingPage from "component/Cards/CardLandingPage";
+import InterestedQuestionaryPreview from "component/InterestFormulary/Questionary";
+import QuestionaryEditor from "component/InterestFormulary/Editor";
+import { ReadQuestionsDto } from "domain/entities/questions";
 
 const { Search } = Input;
 
@@ -26,10 +29,11 @@ const mockData = [
   // Add more items as needed
 ];
 
-const PetsManagementPage: React.FC = () => {
+const InterestedFormulary: React.FC = () => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [questionList, setQuestionList] = useState<ReadQuestionsDto[]>([]);
 
   // Function to handle page change
   const handlePageChange = (page: number) => {
@@ -53,6 +57,10 @@ const PetsManagementPage: React.FC = () => {
     currentPage * itemsPerPage
   );
 
+  const addQuestionToList = (question: ReadQuestionsDto) => {
+    setQuestionList((previous) => [...previous, question]);
+  };
+
   return (
     <div
       style={{
@@ -62,37 +70,19 @@ const PetsManagementPage: React.FC = () => {
         gap: "25px",
       }}
     >
-      <Button style={{ alignSelf: "flex-end", width: "150px" }}>
-        Novo PET
-      </Button>
-      <Search
-        placeholder="Search by description"
-        onSearch={handleSearch}
-        style={{ marginBottom: "20px" }}
-      />
-      <List
-        grid={{ gutter: 16, column: 3 }}
-        dataSource={paginatedData}
-        renderItem={(item) => (
-          <List.Item>
-            <CardLandingPage
-              text={item.text}
-              images={item.images}
-              description={item.description}
-              tag={item.tag}
-            />
-          </List.Item>
-        )}
-      />
-      <Pagination
-        current={currentPage}
-        pageSize={itemsPerPage}
-        total={filteredData.length}
-        onChange={handlePageChange}
-        style={{ marginTop: "20px", textAlign: "center" }}
-      />
+      <Button style={{ alignSelf: "flex-end" }}>Editar</Button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <QuestionaryEditor addQuestionList={addQuestionToList} />
+        <InterestedQuestionaryPreview questions={questionList} />
+      </div>
     </div>
   );
 };
 
-export default PetsManagementPage;
+export default InterestedFormulary;
