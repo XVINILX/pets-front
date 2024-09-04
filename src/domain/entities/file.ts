@@ -3,7 +3,7 @@ export interface PreSignedUrl {
   key: string;
 }
 
-export interface File {
+export interface FileEntity {
   id: string;
   url: string;
   filename: string;

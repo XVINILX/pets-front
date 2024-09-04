@@ -5,8 +5,6 @@ import HomePage from "../src/pages/HomePage";
 import LayoutLandingPage from "./Layouts/LayoutLanding";
 import { useAuth } from "contexts/AuthContext";
 
-import AdminPage from "pages/AdminPage";
-import DonatorInitialPage from "pages/DonatorInitialPage";
 import AuthenticatedLayout from "Layouts/AuthenticatedLayout";
 import PetsManagementPage from "pages/PetsManagement";
 import InterestedPetsManagementPage from "pages/InterestedPetsManagement";
@@ -39,7 +37,6 @@ const AppRouter: React.FC = () => {
             element={
               <AuthenticatedLayout>
                 <Routes>
-                  <Route path="/user" element={<DonatorInitialPage />} />
                   <Route path="/user/pets" element={<PetsManagementPage />} />
                   <Route
                     path="/user/interessados"
@@ -57,7 +54,6 @@ const AppRouter: React.FC = () => {
                     path="/user/novo-pet"
                     element={<NewPetsManagementPage />}
                   />
-                  <Route path="/donator" element={<AdminPage />} />
                 </Routes>
               </AuthenticatedLayout>
             }

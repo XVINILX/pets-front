@@ -1,3 +1,5 @@
+import { UploadFile } from "antd";
+
 export type AnimalStatus = "available" | "adopted" | "donated";
 
 export interface Animal {
@@ -38,6 +40,26 @@ export interface CreateAnimal {
   status: AnimalStatus;
   principalPictureUuid: string;
   listOfPictures: string[];
+  adoptedAt?: Date | null;
+  birthday: Date;
+  activate?: boolean;
+}
+
+export interface CreateAnimalForm {
+  name: string;
+  description: string;
+  race: string;
+  city: string;
+  state: string;
+  street: string;
+  zipCode: string;
+  company: string;
+  slug: string;
+  receiver?: string | null;
+  donatedAt?: Date | null;
+  status: AnimalStatus;
+  principalPictureUuid: UploadFile;
+  listOfPictures: UploadFile[];
   adoptedAt?: Date | null;
   birthday: Date;
   activate?: boolean;

@@ -6,9 +6,10 @@ import React, {
   ReactNode,
 } from "react";
 import { setCookie, destroyCookie, parseCookies } from "nookies";
-import axiosInstance from "../utils/axiosInstance";
+
 import { LoginResponseDto } from "domain/dtos/auth.dto";
 import { refreshToken } from "services/authService";
+import { callForApiClient } from "services/apiClient";
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -56,14 +57,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
     });
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    callForApiClient.jsonService.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token}`;
   };
 
   const logout = () => {
     setToken(null);
     setAuthUser(null);
     destroyCookie(null, "token");
-    delete axiosInstance.defaults.headers.common["Authorization"];
+    delete callForApiClient.jsonService.defaults.headers.common[
+      "Authorization"
+    ];
   };
 
   return (

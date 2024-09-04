@@ -12,6 +12,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
   children,
@@ -21,6 +22,11 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const selectedKey = location.pathname;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -37,19 +43,21 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
+          selectedKeys={[selectedKey]}
+          onClick={(item) => navigate(item.key)}
           items={[
             {
-              key: "1",
+              key: "/user/pets",
               icon: <UserOutlined />,
               label: "Pets",
             },
             {
-              key: "2",
+              key: "/user/interessados",
               icon: <VideoCameraOutlined />,
               label: "Contatos",
             },
             {
-              key: "3",
+              key: "/user/admin",
               icon: <UploadOutlined />,
               label: "Editar Página",
             },

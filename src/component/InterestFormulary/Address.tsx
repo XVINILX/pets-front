@@ -1,30 +1,5 @@
-import React, { useState } from "react";
-import { List, Pagination, Input, Button, Form, Select } from "antd";
-import CardLandingPage from "component/Cards/CardLandingPage";
-
-const { Search } = Input;
-
-const mockData = [
-  {
-    text: "Card 1",
-    images: ["https://via.placeholder.com/300"],
-    description: "Description for Card 1",
-    tag: ["Tag1"],
-  },
-  {
-    text: "Card 2",
-    images: ["https://via.placeholder.com/300"],
-    description: "Description for Card 2",
-    tag: ["Tag2"],
-  },
-  {
-    text: "Card 3",
-    images: ["https://via.placeholder.com/300"],
-    description: "Description for Card 2",
-    tag: ["Tag3"],
-  },
-  // Add more items as needed
-];
+import React from "react";
+import { Input, Form } from "antd";
 
 const AddressQuestions: React.FC = () => {
   return (
@@ -32,30 +7,51 @@ const AddressQuestions: React.FC = () => {
       style={{
         display: "flex",
         justifyContent: "space-between",
-        flexDirection: "column",
-        gap: "25px",
+        flexWrap: "wrap",
       }}
     >
-      <Form layout="vertical">
-        <Form.Item name={"cep"} label="CEP">
-          <Input></Input>
-        </Form.Item>
-        <Form.Item name={"country"} label="País">
-          <Input></Input>
-        </Form.Item>
-        <Form.Item name={"city"} label="Cidade">
-          <Input></Input>
-        </Form.Item>
-        <Form.Item name={"street"} label="Rua">
-          <Input></Input>
-        </Form.Item>
-        <Form.Item name={"number"} label="Número">
-          <Input></Input>
-        </Form.Item>
-        <Form.Item name={"complement"} label="Complemento">
-          <Input></Input>
-        </Form.Item>
-      </Form>
+      <Form.Item
+        name={"zipCode"}
+        label="CEP"
+        className="lg:w-1/2 w-full p-[0px] lg:pe-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
+      <Form.Item
+        name={"country"}
+        label="País"
+        className="lg:w-1/2 w-full p-[0px] lg:ps-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
+      <Form.Item
+        name={"city"}
+        label="Cidade"
+        className="lg:w-1/2 w-full p-[0px] lg:pe-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
+      <Form.Item
+        name={"street"}
+        label="Rua"
+        className="lg:w-1/2 w-full p-[0px] lg:ps-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
+      <Form.Item
+        name={"number"}
+        label="Número"
+        className="lg:w-1/2 w-full p-[0px] lg:pe-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
+      <Form.Item
+        name={"complement"}
+        label="Complemento"
+        className="lg:w-1/2 w-full p-[0px] lg:ps-[10px]"
+      >
+        <Input></Input>
+      </Form.Item>
     </div>
   );
 };

@@ -54,7 +54,10 @@ const DraggableImagesToUpload: React.FC<DraggableImage> = ({ pictures }) => {
                             : undefined
                         }
                         alt={file.name}
-                        style={{ width: "100px", marginRight: "8px" }}
+                        style={{
+                          width: "100px",
+                          marginRight: "8px",
+                        }}
                       />
                       <span>{file.name}</span>
                     </div>
