@@ -49,8 +49,12 @@ export const setUpApiClient = () => {
     }
   );
 
-  const jsonService = axiosInstance;
-  const formDataService = axiosInstance;
+  return axiosInstance;
+};
+
+export const axiosInstanceReturn = () => {
+  const jsonService = setUpApiClient();
+  const formDataService = setUpApiClient();
   formDataService.defaults.headers.common["Content-Type"] =
     "multipart/form-data";
 

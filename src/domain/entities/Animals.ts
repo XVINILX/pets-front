@@ -1,6 +1,10 @@
 import { UploadFile } from "antd";
 
-export type AnimalStatus = "available" | "adopted" | "donated";
+export type AnimalStatus = "available" | "adopted" | "other";
+
+export type AnimalGenders = "female" | "male";
+
+export type AnimalType = "dog" | "cat";
 
 export interface Animal {
   id: string;
@@ -11,18 +15,23 @@ export interface Animal {
   state: string;
   street: string;
   zipCode: string;
-  company: string; // Assuming this references the company's ID
-  receiver?: string | null; // Assuming this references the user's ID
-  donatedAt?: Date | null;
+  company: string;
+  receiver?: string | null;
+  initialDateAtDonation?: Date | null;
   status: AnimalStatus;
   principalPictureUuid: string;
-  listOfPictures: string[];
+  imagesList: string[];
   adoptedAt?: Date | null;
+  gender: AnimalGenders;
   slug: string;
   birthday: Date;
+  specialTreatment?: string;
+  healthHistory?: string;
   activate: boolean;
   createdAt: Date;
   updatedAt: Date;
+  type: AnimalType;
+  castrated: boolean;
 }
 
 export interface CreateAnimal {
@@ -36,13 +45,19 @@ export interface CreateAnimal {
   company: string;
   slug: string;
   receiver?: string | null;
-  donatedAt?: Date | null;
+  initialDateAtDonation?: Date | null;
+  gender: AnimalGenders;
   status: AnimalStatus;
   principalPictureUuid: string;
-  listOfPictures: string[];
+  imagesList: string[];
+  specialTreatment?: string;
+  healthHistory?: string;
   adoptedAt?: Date | null;
-  birthday: Date;
+  birthday: Date | null;
   activate?: boolean;
+  weight?: number;
+  type: AnimalType;
+  castrated: boolean;
 }
 
 export interface CreateAnimalForm {
@@ -51,18 +66,24 @@ export interface CreateAnimalForm {
   race: string;
   city: string;
   state: string;
+  gender: AnimalGenders;
   street: string;
   zipCode: string;
   company: string;
+  specialTreatment?: string;
+  healthHistory?: string;
   slug: string;
   receiver?: string | null;
-  donatedAt?: Date | null;
+  initialDateAtDonation?: Date | null;
   status: AnimalStatus;
   principalPictureUuid: UploadFile;
-  listOfPictures: UploadFile[];
+  imagesList: UploadFile[];
   adoptedAt?: Date | null;
   birthday: Date;
   activate?: boolean;
+  weight?: number;
+  type: AnimalType;
+  castrated: boolean;
 }
 
 export interface UpdateAnimal {
@@ -72,17 +93,22 @@ export interface UpdateAnimal {
   city?: string;
   state?: string;
   slug: string;
+  gender: AnimalGenders;
   street?: string;
   zipCode?: string;
+  specialTreatment?: string;
+  healthHistory?: string;
   company?: string;
   receiver?: string | null;
-  donatedAt?: Date | null;
+  initialDateAtDonation?: Date | null;
   status?: AnimalStatus;
   principalPictureUuid?: string;
-  listOfPictures?: string[];
+  imagesList?: string[];
   adoptedAt?: Date | null;
   birthday?: Date;
   activate?: boolean;
+  type: AnimalType;
+  castrated: boolean;
 }
 
 export interface ListAnimals {

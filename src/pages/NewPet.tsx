@@ -21,7 +21,8 @@ import "react-quill/dist/quill.snow.css";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { uploadFile } from "services/files.service";
 import { CreateFile } from "domain/entities/file";
-import { createAnimal } from "services/animal.service";
+import { createAnimal, getBreedsByType } from "services/animal.service";
+import dayjs from "dayjs";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -30,6 +31,7 @@ const NewPetsManagementPage: React.FC = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState<string>();
+  const [breedlist, setBreedlist] = React.useState<{ breeds: string[] }>();
 
   const [pictures, setPictures] = React.useState<UploadFile[]>([]);
 
@@ -69,9 +71,9 @@ const NewPetsManagementPage: React.FC = () => {
       let principalPicture = file.id;
     }
 
-    if (values.listOfPictures && values.listOfPictures.length) {
+    if (values.imagesList && values.imagesList.length) {
       let fileList = await Promise.all(
-        values.listOfPictures.map((file) => {
+        values.imagesList.map((file) => {
           if (file.originFileObj) return uploadFile(file.originFileObj);
         })
       );
@@ -81,11 +83,25 @@ const NewPetsManagementPage: React.FC = () => {
         .map((file) => file.id);
     }
 
-    const { principalPictureUuid, listOfPictures, ...data } = values;
+    const {
+      principalPictureUuid,
+      imagesList,
+      birthday,
+      initialDateAtDonation,
+      adoptedAt,
+      weight,
+      ...data
+    } = values;
 
     const animalInfoMetadata: CreateAnimal = {
       principalPictureUuid: principalPicture,
-      listOfPictures: listOfPicturesResponse,
+      imagesList: listOfPicturesResponse,
+      birthday: birthday ? new Date(birthday) : null,
+      weight: weight ? Number(weight) : 0,
+      adoptedAt: adoptedAt ? new Date(adoptedAt) : null,
+      initialDateAtDonation: initialDateAtDonation
+        ? new Date(initialDateAtDonation)
+        : null,
       ...data,
     };
 
@@ -129,6 +145,11 @@ const NewPetsManagementPage: React.FC = () => {
         setImageUrl(url);
       });
     }
+  };
+
+  const onChangeAnimalType = async (value: string) => {
+    const breeds = await getBreedsByType(value);
+    setBreedlist(breeds);
   };
 
   return (
@@ -182,10 +203,47 @@ const NewPetsManagementPage: React.FC = () => {
               uploadButton
             )}
           </Upload>
+          <Form.Item<CreateAnimalForm> name={"name"} label="Nome do PET">
+            <Input className="input-style"></Input>
+          </Form.Item>
+          <div className="flex flex-wrap">
+            <Form.Item<CreateAnimalForm>
+              name={"birthday"}
+              label="Data de nascimento"
+              className="lg:w-1/3 w-full justify-start flex"
+            >
+              <input className="input-style-date" type="date"></input>
+            </Form.Item>
+
+            <Form.Item<CreateAnimalForm>
+              name={"type"}
+              label="Tipo"
+              className="lg:w-1/3 w-full px-[25px]"
+            >
+              <Select
+                className="input-style-select"
+                onChange={onChangeAnimalType}
+                options={[
+                  { value: "dog", label: "Cachorro" },
+                  { value: "cat", label: "Gato" },
+                ]}
+              ></Select>
+            </Form.Item>
+            <Form.Item<CreateAnimalForm>
+              name={"race"}
+              label="Raça"
+              className="lg:w-1/3 w-full px-[25px]"
+            >
+              <Select
+                className="input-style-select"
+                options={breedlist?.breeds.map((value) => {
+                  return { value: value, label: value };
+                })}
+              ></Select>
+            </Form.Item>
+          </div>
         </Form.Item>
-        <Form.Item<CreateAnimalForm> name={"name"} label="Nome do PET">
-          <Input></Input>
-        </Form.Item>
+
         <Form.Item<CreateAnimalForm>
           name={"description"}
           style={{ height: "320px" }}
@@ -198,22 +256,23 @@ const NewPetsManagementPage: React.FC = () => {
             style={{ height: "250px" }}
           />
         </Form.Item>
-        <AddressQuestions />
+        <AddressQuestions form={form} />
         <div className="flex flex-wrap">
           <Form.Item<CreateAnimalForm>
             name={"adoptedAt"}
             label="Adotado Em"
-            className="w-1/3 justify-start flex"
+            className="lg:w-1/3 w-full justify-start flex"
           >
-            <input type="date"></input>
+            <input type="date" className="input-style-date"></input>
           </Form.Item>
 
           <Form.Item<CreateAnimalForm>
             name={"status"}
             label="Status"
-            className="w-1/3 px-[25px]"
+            className="lg:w-1/3 w-full px-[25px]"
           >
             <Select
+              className="input-style-select"
               options={[
                 { value: "available", label: "Disponível" },
                 { value: "adopted", label: "Adotado" },
@@ -224,14 +283,90 @@ const NewPetsManagementPage: React.FC = () => {
           <Form.Item<CreateAnimalForm>
             name={"activate"}
             label="Ativo"
-            className="w-1/3 justify-start flex"
+            valuePropName="checked"
+            className="lg:w-1/3 w-full justify-start flex"
           >
             <Checkbox />
           </Form.Item>
         </div>
-        <h3 className="w-1/3 text-left">Lista de Imagens do PET</h3>
         <Form.Item<CreateAnimalForm>
-          name={"listOfPictures"}
+          name={"specialTreatment"}
+          label="Descrição de Tratamentos especiais necessários"
+        >
+          <Input.TextArea className="input-style" />
+        </Form.Item>
+        <div className="flex flex-wrap">
+          <Form.Item<CreateAnimalForm>
+            name={"initialDateAtDonation"}
+            label="Foi recolhido em"
+            className="lg:w-1/3 w-full justify-start flex"
+          >
+            <input type="date" className="input-style-date"></input>
+          </Form.Item>
+
+          <Form.Item<CreateAnimalForm>
+            name={"gender"}
+            label="Gênero"
+            className="lg:w-1/3 w-full px-[25px]"
+          >
+            <Select
+              className="input-style-select"
+              options={[
+                { value: "male", label: "Macho" },
+                { value: "female", label: "Fêmea" },
+              ]}
+            ></Select>
+          </Form.Item>
+          <Form.Item<CreateAnimalForm>
+            name={"castrated"}
+            label="Castrado"
+            valuePropName="checked"
+            className="lg:w-1/3 w-full justify-start flex"
+          >
+            <Checkbox />
+          </Form.Item>
+        </div>
+
+        <Form.Item<CreateAnimalForm>
+          name={"healthHistory"}
+          label="Histórico de saúde: vacinas, cirurgias, etc"
+        >
+          <Input.TextArea className="input-style" />
+        </Form.Item>
+
+        <div className="flex flex-wrap">
+          <Form.Item<CreateAnimalForm>
+            name={"initialDateAtDonation"}
+            label="Foi recolhido em"
+            className="lg:w-1/3 w-full justify-start flex"
+          >
+            <input type="date" className="input-style-date"></input>
+          </Form.Item>
+
+          <Form.Item<CreateAnimalForm>
+            name={"gender"}
+            label="Gênero"
+            className="lg:w-1/3 w-full px-[25px]"
+          >
+            <Select
+              className="input-style-select"
+              options={[
+                { value: "male", label: "Macho" },
+                { value: "female", label: "Fêmea" },
+              ]}
+            ></Select>
+          </Form.Item>
+          <Form.Item<CreateAnimalForm>
+            name={"weight"}
+            label="Peso"
+            className="lg:w-1/3 w-full justify-start flex"
+          >
+            <Input type="number" className="input-style w-full" />
+          </Form.Item>
+        </div>
+        <h3 className="lg:w-1/3 w-full text-left">Lista de Imagens do PET</h3>
+        <Form.Item<CreateAnimalForm>
+          name={"imagesList"}
           valuePropName="fileList"
           label=""
           className="flex flex-col w-[100%] flex-wrap"
@@ -243,7 +378,7 @@ const NewPetsManagementPage: React.FC = () => {
           }}
         >
           <Upload
-            name="listOfPictures"
+            name="imagesList"
             showUploadList={false}
             maxCount={5}
             multiple

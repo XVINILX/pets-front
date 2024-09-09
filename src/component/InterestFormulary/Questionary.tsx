@@ -12,6 +12,8 @@ export interface QuestionaryEditorProps {
 const InterestedQuestionaryPreview: React.FC<QuestionaryEditorProps> = ({
   questions,
 }) => {
+  const [form] = Form.useForm();
+
   return (
     <div
       style={{
@@ -28,7 +30,7 @@ const InterestedQuestionaryPreview: React.FC<QuestionaryEditorProps> = ({
               case QuestionType["address"]:
                 return (
                   <div key={index}>
-                    <AddressQuestions />
+                    <AddressQuestions form={form} />
                   </div>
                 );
               case QuestionType["tellphone"]:

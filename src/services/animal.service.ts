@@ -1,4 +1,9 @@
-import { Animal, CreateAnimal, ListAnimals } from "domain/entities/Animals";
+import {
+  Animal,
+  AnimalType,
+  CreateAnimal,
+  ListAnimals,
+} from "domain/entities/Animals";
 import { callForApiClient } from "./apiClient";
 
 export const getAllAnimals = async (
@@ -12,10 +17,17 @@ export const getAllAnimals = async (
   return response.data;
 };
 
-export const getAnimalById = async (id: string): Promise<Animal> => {
-  const response = await await callForApiClient.jsonService.get(
-    `/animals?id=${id}`
+export const getBreedsByType = async (
+  type: string
+): Promise<{ breeds: string[] }> => {
+  const response = await callForApiClient.jsonService.get(
+    `/animals/type=${type}`
   );
+  return response.data;
+};
+
+export const getAnimalById = async (id: string): Promise<Animal> => {
+  const response = await callForApiClient.jsonService.get(`/animals?id=${id}`);
   return response.data;
 };
 

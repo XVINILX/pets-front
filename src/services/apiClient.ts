@@ -1,3 +1,3 @@
-import { setUpApiClient } from "utils/axiosInstance";
+import { axiosInstanceReturn } from "utils/axiosInstance";
 
-export const callForApiClient = setUpApiClient();
+export const callForApiClient = axiosInstanceReturn();
