@@ -34,6 +34,12 @@ export interface Animal {
   castrated: boolean;
 }
 
+export interface AnimalListImage {
+  imageUuid: string;
+
+  order: number;
+}
+
 export interface CreateAnimal {
   name: string;
   description: string;
@@ -49,7 +55,7 @@ export interface CreateAnimal {
   gender: AnimalGenders;
   status: AnimalStatus;
   principalPictureUuid: string;
-  imagesList: string[];
+  imagesList: AnimalListImage[];
   specialTreatment?: string;
   healthHistory?: string;
   adoptedAt?: Date | null;
@@ -76,7 +82,7 @@ export interface CreateAnimalForm {
   receiver?: string | null;
   initialDateAtDonation?: Date | null;
   status: AnimalStatus;
-  principalPictureUuid: UploadFile;
+  principalPictureUuid: any;
   imagesList: UploadFile[];
   adoptedAt?: Date | null;
   birthday: Date;

@@ -16,6 +16,11 @@ export const loginAdminDto = async (
   return response.data;
 };
 
+export const loginGoogle = async (): Promise<LoginResponseDto> => {
+  const response = await callForApiClient.jsonService.get(`/auth`);
+  return response.data;
+};
+
 export const loginEmployee = async (
   login: LoginEmployeeDto
 ): Promise<LoginResponseDto> => {

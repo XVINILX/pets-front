@@ -15,7 +15,7 @@ export const uploadFile = async (file: RcFile): Promise<FileEntity> => {
   formData.append("file", file);
 
   const response = await callForApiClient.formDataService.post<FileEntity>(
-    "/upload/file",
+    "/files/upload",
     formData
   );
   return response.data;

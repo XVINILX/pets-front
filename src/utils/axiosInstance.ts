@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { parseCookies, setCookie } from "nookies";
 const baseURL = process.env.REACT_APP_API_URL;
@@ -19,6 +20,11 @@ export const setUpApiClient = () => {
       return config;
     },
     (error) => {
+      console.error("Request Error: ", error);
+      notification.error({
+        message: "Request Failed",
+        description: "An error occurred while sending the request.",
+      });
       return Promise.reject(error);
     }
   );
@@ -28,23 +34,11 @@ export const setUpApiClient = () => {
     async (error) => {
       const originalRequest = error.config;
 
-      if (error.response && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const newToken = await refreshAuthToken();
-
-        if (newToken) {
-          setCookie(null, "token", newToken, {
-            maxAge: 30 * 24 * 60 * 60, // Set cookie expiration (30 days in this example)
-            path: "/",
-          });
-          axiosInstance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${newToken}`;
-          originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
-          return axiosInstance(originalRequest);
-        }
-      }
-
+      console.error("Request Error: ", error);
+      notification.error({
+        message: "Request Failed",
+        description: "An error occurred while sending the request.",
+      });
       return Promise.reject(error);
     }
   );

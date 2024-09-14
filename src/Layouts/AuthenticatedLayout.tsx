@@ -61,6 +61,11 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
               icon: <UploadOutlined />,
               label: "Editar Página",
             },
+            {
+              key: "/institucional",
+              icon: <UploadOutlined />,
+              label: "Institucional",
+            },
           ]}
         />
       </Layout.Sider>

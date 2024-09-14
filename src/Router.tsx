@@ -11,6 +11,8 @@ import InterestedPetsManagementPage from "pages/InterestedPetsManagement";
 import SelfPetsManagementPage from "pages/SelfPagePetsManagement";
 import InterestedFormulary from "pages/InteretedFormulary";
 import NewPetsManagementPage from "pages/NewPet";
+import GoogleAuthReal from "pages/GoogleAuthReal";
+import CompanyCreationPage from "pages/CompanyCreation";
 
 const AppRouter: React.FC = () => {
   const { isAuthenticated, authUser } = useAuth();
@@ -18,7 +20,11 @@ const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {isAuthenticated && (
+        <Route
+          path="/google"
+          element={<GoogleAuthReal></GoogleAuthReal>}
+        ></Route>
+        {!isAuthenticated && (
           <Route
             path="/*"
             element={
@@ -31,7 +37,7 @@ const AppRouter: React.FC = () => {
           />
         )}
 
-        {!isAuthenticated && (
+        {isAuthenticated && (
           <Route
             path="/*"
             element={
@@ -53,6 +59,10 @@ const AppRouter: React.FC = () => {
                   <Route
                     path="/user/novo-pet"
                     element={<NewPetsManagementPage />}
+                  />
+                  <Route
+                    path="/institucional"
+                    element={<CompanyCreationPage />}
                   />
                 </Routes>
               </AuthenticatedLayout>

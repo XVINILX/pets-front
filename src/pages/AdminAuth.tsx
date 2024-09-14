@@ -1,4 +1,4 @@
-import { Form, Modal, Button as AntButton, Input } from "antd";
+import { Form, Modal, Button as AntButton, Input, Button } from "antd";
 
 import { useAuth } from "contexts/AuthContext";
 import React from "react";
@@ -17,6 +17,11 @@ const AdminAuth: React.FC<ModalProps> = ({ setModalState, isModalOpen }) => {
     setModalState(value);
   };
 
+  const redirectToServer = () => {
+    console.log("Button clicked");
+    handleIsModalOpen(false);
+    window.location.href = "http://localhost:8080/auth";
+  };
   const handleFormSubmit = async (values: any) => {
     try {
       const authResponse = await loginAdminDto({
@@ -73,6 +78,14 @@ const AdminAuth: React.FC<ModalProps> = ({ setModalState, isModalOpen }) => {
             ENTRAR
           </AntButton>
         </Form.Item>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation(); // Ensure it doesn't prevent click behavior
+            redirectToServer();
+          }}
+        >
+          Entrar com o Google
+        </Button>
       </Form>
     </Modal>
   );

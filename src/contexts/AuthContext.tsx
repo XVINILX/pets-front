@@ -17,6 +17,7 @@ interface AuthContextData {
   authUser: LoginResponseDto | null;
   login: (authUser: LoginResponseDto) => void;
   logout: () => void;
+  setLoginCookie: (token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -41,7 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     const { token: savedToken } = parseCookies();
     if (savedToken) {
-      attToken();
+      // attToken();
       setToken(savedToken);
     }
   }, []);
@@ -73,7 +74,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!token, token, authUser, login, logout }}
+      value={{
+        isAuthenticated: !!token,
+        token,
+        authUser,
+        login,
+        logout,
+        setLoginCookie,
+      }}
     >
       {children}
     </AuthContext.Provider>

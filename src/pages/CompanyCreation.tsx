@@ -29,7 +29,7 @@ import { createAnimal, getBreedsByType } from "services/animal.service";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-const NewPetsManagementPage: React.FC = () => {
+const CompanyCreationPage: React.FC = () => {
   const [form] = Form.useForm();
 
   const [loading, setLoading] = React.useState(false);
@@ -415,4 +415,4 @@ const NewPetsManagementPage: React.FC = () => {
   );
 };
 
-export default NewPetsManagementPage;
+export default CompanyCreationPage;
