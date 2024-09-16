@@ -24,7 +24,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { uploadFile } from "services/files.service";
-import { CreateFile } from "domain/entities/file";
 import { createAnimal, getBreedsByType } from "services/animal.service";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -41,7 +40,6 @@ const NewPetsManagementPage: React.FC = () => {
   const [description, setDescription] = React.useState<string>("");
 
   const handleUpload = ({ fileList }: any) => {
-    console.log(fileList, "fileList");
     setPictures(fileList);
   };
 
@@ -62,8 +60,6 @@ const NewPetsManagementPage: React.FC = () => {
   };
 
   const handleFinish = async (values: CreateAnimalForm) => {
-    //TODO se tiver algum arquivo na lista de fileList, passar por cada um deles e
-    // após, enviar todas as imagens e infos pro back
     let principalPicture = "";
 
     if (
@@ -115,9 +111,7 @@ const NewPetsManagementPage: React.FC = () => {
       ...data,
     };
 
-    console.log(animalInfoMetadata, "animalInfo");
-
-    const newAnimal = await createAnimal(animalInfoMetadata);
+    await createAnimal(animalInfoMetadata);
   };
 
   const getBase64 = (img: FileType, callback: (url: string) => void) => {

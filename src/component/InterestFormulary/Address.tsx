@@ -11,7 +11,7 @@ const AddressQuestions: React.FC<Props> = ({ form }) => {
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedCep = formatCep(e.target.value);
-    console.log("formattedCep", formattedCep);
+
     setCep(formattedCep);
     form.setFieldValue("zipCode", formattedCep);
   };

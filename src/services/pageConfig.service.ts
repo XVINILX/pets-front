@@ -4,6 +4,7 @@ import {
   ListEnterpriseDTO,
 } from "domain/entities/Enterprises";
 import { callForApiClient } from "./apiClient";
+import { CreatePageConfigDTO, PageConfigDTO } from "domain/entities/PageConfig";
 
 export const getAllEnterprises = async (
   itemsPerPage: number,
@@ -23,10 +24,13 @@ export const getEnterpriseById = async (id: string): Promise<EnterpriseDTO> => {
   return response.data;
 };
 
-export const createEnterprise = async (
-  user: CreateEnterpriseDTO
-): Promise<CreateEnterpriseDTO> => {
-  const response = await callForApiClient.jsonService.post("/enterprise", user);
+export const createPageConfig = async (
+  pageConfig: CreatePageConfigDTO
+): Promise<PageConfigDTO> => {
+  const response = await callForApiClient.jsonService.post(
+    "/pageConfig",
+    pageConfig
+  );
   return response.data;
 };
 
