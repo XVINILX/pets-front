@@ -3,7 +3,7 @@ import { List, Pagination, Input, Button } from "antd";
 import CardLandingPage from "component/Cards/CardLandingPage";
 import InterestedQuestionaryPreview from "component/InterestFormulary/Questionary";
 import QuestionaryEditor from "component/InterestFormulary/Editor";
-import { ReadQuestionsDto } from "domain/entities/questions";
+import { QuestionDTO } from "domain/entities/Questions";
 
 const { Search } = Input;
 
@@ -30,36 +30,13 @@ const mockData = [
 ];
 
 const InterestedFormulary: React.FC = () => {
-  const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [questionList, setQuestionList] = useState<ReadQuestionsDto[]>([]);
+  const [questionList, setQuestionList] = useState<QuestionDTO[]>([]);
 
-  // Function to handle page change
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  // Function to handle search input change
-  const handleSearch = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1); // Reset to first page on search
-  };
-
-  // Filter the data based on search query
-  const filteredData = mockData.filter((item) =>
-    item.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Calculate the current items to display
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const addQuestionToList = (question: ReadQuestionsDto) => {
+  const addQuestionToList = (question: QuestionDTO) => {
     setQuestionList((previous) => [...previous, question]);
   };
+
+  //TODO make the post to create the questionConfig and then, add the questions
 
   return (
     <div

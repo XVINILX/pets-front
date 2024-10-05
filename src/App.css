@@ -44,6 +44,7 @@ body {
 .input-style {
   border-radius: 0;
   border: none;
+  min-width: 100% !important;
   border-bottom: 2px solid rgb(103, 52, 52);
 }
 

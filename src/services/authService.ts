@@ -10,7 +10,7 @@ export const loginAdminDto = async (
   login: LoginAdminDto
 ): Promise<LoginResponseDto> => {
   const response = await callForApiClient.jsonService.post(
-    `/auth/admin`,
+    `/auth/login`,
     login
   );
   return response.data;

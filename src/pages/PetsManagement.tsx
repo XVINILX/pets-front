@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { List, Pagination, Input, Button } from "antd";
 import CardLandingPage from "component/Cards/CardLandingPage";
+import { getAllAnimals } from "services/animal.service";
+import { Animal } from "domain/entities/Animals";
 
 const { Search } = Input;
 
@@ -27,31 +29,35 @@ const mockData = [
 ];
 
 const PetsManagementPage: React.FC = () => {
-  const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Function to handle page change
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [paginatedData, setPaginatedDate] = useState<Animal[]>();
+  const [total, setTotal] = useState<number>(0);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  useEffect(() => {
+    const getAnimalList = async () => {
+      try {
+        const animal = await getAllAnimals(itemsPerPage, currentPage, "");
+        setPaginatedDate(animal.data);
+        setTotal(animal.total);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getAnimalList();
+  }, [currentPage]);
 
   // Function to handle search input change
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setCurrentPage(1); // Reset to first page on search
   };
-
-  // Filter the data based on search query
-  const filteredData = mockData.filter((item) =>
-    item.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Calculate the current items to display
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   return (
     <div
@@ -76,10 +82,10 @@ const PetsManagementPage: React.FC = () => {
         renderItem={(item) => (
           <List.Item>
             <CardLandingPage
-              text={item.text}
-              images={item.images}
+              text={item.name}
+              images={item.imagesList}
               description={item.description}
-              tag={item.tag}
+              tag={[item.type]}
             />
           </List.Item>
         )}
@@ -87,7 +93,7 @@ const PetsManagementPage: React.FC = () => {
       <Pagination
         current={currentPage}
         pageSize={itemsPerPage}
-        total={filteredData.length}
+        total={total}
         onChange={handlePageChange}
         style={{ marginTop: "20px", textAlign: "center" }}
       />

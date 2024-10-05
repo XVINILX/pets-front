@@ -1,33 +1,20 @@
 import React from "react";
-import {
-  Input,
-  Button,
-  Form,
-  Select,
-  Checkbox,
-  Upload,
-  UploadFile,
-  UploadProps,
-  GetProp,
-  message,
-} from "antd";
-import { AnimalListImage, CreateAnimal } from "domain/entities/Animals";
+import { Input, Button, Form, UploadProps, GetProp, message } from "antd";
+
 import AddressQuestions from "component/InterestFormulary/Address";
-import { UploadOutlined } from "@ant-design/icons";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import DraggableImagesToUpload from "component/DrangAndDrop/DrangAndDropImages";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { uploadFile } from "services/files.service";
-import { CreateFile } from "domain/entities/file";
-import { createAnimal, getBreedsByType } from "services/animal.service";
 import { CreateEnterpriseDTO } from "domain/entities/Enterprises";
 import { createEnterprise } from "services/enterprise.service";
 
-type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
+interface Props {
+  onCreationOngAction?: () => void;
+}
 
-const CompanyCreationPage: React.FC = () => {
+const CompanyCreationPage: React.FC<Props> = ({
+  onCreationOngAction,
+}: Props) => {
   const [form] = Form.useForm();
 
   const [description, setDescription] = React.useState<string>("");
@@ -39,6 +26,9 @@ const CompanyCreationPage: React.FC = () => {
   const handleFinish = async (values: CreateEnterpriseDTO) => {
     try {
       const newAnimal = await createEnterprise(values);
+      if (onCreationOngAction) {
+        onCreationOngAction();
+      }
     } catch (e) {
       console.error(e);
     }
@@ -51,11 +41,13 @@ const CompanyCreationPage: React.FC = () => {
     <div
       style={{
         display: "flex",
+
         justifyContent: "space-between",
         flexDirection: "column",
-        alignItems: "self-start",
+
         width: "100%",
         gap: "25px",
+        paddingTop: "25px",
       }}
     >
       <h1>Institucional</h1>
@@ -64,27 +56,29 @@ const CompanyCreationPage: React.FC = () => {
         layout="vertical"
         form={form}
         onFinish={handleFinish}
-        style={{ width: "100%" }}
       >
-        <Form.Item<CreateEnterpriseDTO>
-          name={"razaoSocial"}
-          label="Razão Social"
-          className="lg:w-1/2 w-full justify-start flex"
-        >
-          <Input className="input-style"></Input>
-        </Form.Item>
-        <Form.Item<CreateEnterpriseDTO>
-          name={"nomeFantasia"}
-          label="Nome Fantasia ou do abrigo"
-          className="lg:w-1/2 w-full justify-start flex"
-        >
-          <Input className="input-style"></Input>
-        </Form.Item>
+        <div className="flex flex-wrap">
+          <Form.Item<CreateEnterpriseDTO>
+            name={"razaoSocial"}
+            label="Razão Social"
+            className="lg:w-1/2 w-full lg:pe-[10px]"
+          >
+            <Input className="input-style"></Input>
+          </Form.Item>
+
+          <Form.Item<CreateEnterpriseDTO>
+            name={"nomeFantasia"}
+            label="Nome Fantasia ou do abrigo"
+            className="lg:w-1/2 w-full lg:ps-[10px]"
+          >
+            <Input className="input-style"></Input>
+          </Form.Item>
+        </div>
         <div className="flex flex-wrap">
           <Form.Item<CreateEnterpriseDTO>
             name={"cnpj"}
             label="CNPJ"
-            className="lg:w-1/3 w-full px-[25px]"
+            className="lg:w-2/3 w-full lg:pe-[10px]"
           >
             <Input className="input-style"></Input>
           </Form.Item>
@@ -92,12 +86,15 @@ const CompanyCreationPage: React.FC = () => {
           <Form.Item<CreateEnterpriseDTO>
             name={"openingDate"}
             label="Data de Início do Projeto"
-            className="lg:w-1/3 w-full px-[25px]"
+            className="lg:w-1/3 w-full lg:ps-[10px]"
           >
-            <input type="date" className="input-style-date"></input>
+            <input
+              style={{ width: "100%" }}
+              type="date"
+              className="input-style-date"
+            ></input>
           </Form.Item>
         </div>
-
         <Form.Item<CreateEnterpriseDTO>
           name={"description"}
           style={{ height: "320px" }}
@@ -111,7 +108,6 @@ const CompanyCreationPage: React.FC = () => {
           />
         </Form.Item>
         <AddressQuestions form={form} />
-
         <Button htmlType="submit">Adicionar</Button>
       </Form>
     </div>

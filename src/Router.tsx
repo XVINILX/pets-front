@@ -13,6 +13,8 @@ import InterestedFormulary from "pages/InteretedFormulary";
 import NewPetsManagementPage from "pages/NewPet";
 import GoogleAuthReal from "pages/GoogleAuthReal";
 import CompanyCreationPage from "pages/CompanyCreation";
+import FormularyList from "pages/FormularyList";
+import RegisterOng from "pages/RegisterOng";
 
 const AppRouter: React.FC = () => {
   const { isAuthenticated, authUser } = useAuth();
@@ -24,6 +26,9 @@ const AppRouter: React.FC = () => {
           path="/google"
           element={<GoogleAuthReal></GoogleAuthReal>}
         ></Route>
+
+        <Route path="/registro/abrigo" element={<RegisterOng />}></Route>
+
         {!isAuthenticated && (
           <Route
             path="/*"
@@ -55,6 +60,10 @@ const AppRouter: React.FC = () => {
                   <Route
                     path="/user/formulario-de-interesse"
                     element={<InterestedFormulary />}
+                  />
+                  <Route
+                    path="/user/lista-formulario-de-interesse"
+                    element={<FormularyList />}
                   />
                   <Route
                     path="/user/novo-pet"

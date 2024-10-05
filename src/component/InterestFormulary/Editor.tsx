@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import { List, Pagination, Input, Button, Form, Select } from "antd";
-import CardLandingPage from "component/Cards/CardLandingPage";
-import { ReadQuestionsDto } from "domain/entities/questions";
+import React from "react";
+import { Input, Button, Form, Select } from "antd";
+import { QuestionDTO } from "domain/entities/Questions";
 
 interface Props {
-  addQuestionList: (questions: ReadQuestionsDto) => void;
+  addQuestionList: (questions: QuestionDTO) => void;
 }
 
 const QuestionaryEditor: React.FC<Props> = ({ addQuestionList }) => {
   const [form] = Form.useForm();
 
-  const handleAddQuestion = (question: ReadQuestionsDto) => {
+  const handleAddQuestion = (question: QuestionDTO) => {
     console.log(question);
     addQuestionList(question);
   };
@@ -24,12 +23,12 @@ const QuestionaryEditor: React.FC<Props> = ({ addQuestionList }) => {
         gap: "25px",
       }}
     >
-      <Form<ReadQuestionsDto>
+      <Form<QuestionDTO>
         layout="vertical"
         form={form}
         onFinish={handleAddQuestion}
       >
-        <Form.Item<ReadQuestionsDto> name={"type"} label="Tipo de pergunt">
+        <Form.Item<QuestionDTO> name={"type"} label="Tipo de pergunt">
           <Select
             options={[
               { value: "address", label: "Endereço" },
@@ -39,7 +38,7 @@ const QuestionaryEditor: React.FC<Props> = ({ addQuestionList }) => {
             ]}
           ></Select>
         </Form.Item>
-        <Form.Item<ReadQuestionsDto> name={"label"} label="Título da pergunta">
+        <Form.Item<QuestionDTO> name={"question"} label="Título da pergunta">
           <Input></Input>
         </Form.Item>
         <Button htmlType="submit">Adicionar</Button>

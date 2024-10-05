@@ -43,7 +43,7 @@ const AdminAuth: React.FC<ModalProps> = ({ setModalState, isModalOpen }) => {
       onCancel={() => handleIsModalOpen(false)}
       footer={null}
       title="Faça Login!"
-      style={{ textAlign: "center" }} // Center modal content
+      style={{ textAlign: "center", borderRadius: "0px" }} // Center modal content
     >
       <Form
         form={form}

@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       try {
         const response = await refreshToken();
         setAuthUser(response);
-        if (response) setLoginCookie(response.token);
+        if (response) setLoginCookie(response.accessToken);
         else logout();
       } catch (error) {
         console.error(error);
@@ -41,15 +41,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     const { token: savedToken } = parseCookies();
+    console.log(savedToken);
     if (savedToken) {
       // attToken();
       setToken(savedToken);
+    } else {
+      logout();
     }
-  }, []);
+  }, [token]);
 
   const login = (authUserReq: LoginResponseDto) => {
     setAuthUser(authUserReq);
-    setLoginCookie(authUserReq.token);
+    console.log(authUserReq);
+    setLoginCookie(authUserReq.accessToken);
   };
 
   const setLoginCookie = (token: string) => {
@@ -66,7 +70,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = () => {
     setToken(null);
     setAuthUser(null);
+
     destroyCookie(null, "token");
+    console.log(!!token, "inverso de token");
     delete callForApiClient.jsonService.defaults.headers.common[
       "Authorization"
     ];

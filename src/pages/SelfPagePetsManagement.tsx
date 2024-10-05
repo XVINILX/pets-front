@@ -330,7 +330,7 @@ const SelfPetsManagementPage: React.FC = () => {
           </Form.Item>
           <h3>Pets</h3>
           <Search placeholder="Search by description" onSearch={handleSearch} />
-          <List
+          {/* <List
             grid={{ gutter: 16, column: 3 }}
             dataSource={paginatedData}
             renderItem={(item) => (
@@ -350,7 +350,7 @@ const SelfPetsManagementPage: React.FC = () => {
             total={filteredData.length}
             onChange={handlePageChange}
             style={{ marginTop: "20px", textAlign: "center" }}
-          />
+          /> */}
         </div>
       </Form>
     </div>

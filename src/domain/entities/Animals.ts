@@ -1,4 +1,5 @@
 import { UploadFile } from "antd";
+import { FileEntity } from "./file";
 
 export type AnimalStatus = "available" | "adopted" | "other";
 
@@ -19,8 +20,8 @@ export interface Animal {
   receiver?: string | null;
   initialDateAtDonation?: Date | null;
   status: AnimalStatus;
-  principalPictureUuid: string;
-  imagesList: string[];
+  principalPictureUuid: FileEntity;
+  imagesList: FileEntity[];
   adoptedAt?: Date | null;
   gender: AnimalGenders;
   slug: string;

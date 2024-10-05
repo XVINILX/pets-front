@@ -7,12 +7,12 @@ import {
 import { callForApiClient } from "./apiClient";
 
 export const getAllAnimals = async (
-  itemsPerPage: number,
+  items: number,
   page: number,
   search: string
 ): Promise<ListAnimals> => {
   const response = await callForApiClient.jsonService.get("/animals/list", {
-    params: { itemsPerPage, page, search },
+    params: { items, page, search },
   });
   return response.data;
 };

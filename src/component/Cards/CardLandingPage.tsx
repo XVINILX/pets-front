@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { FileEntity } from "domain/entities/file";
 import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -12,7 +13,7 @@ type TextAlign =
 
 interface CardProps {
   text: string;
-  images: string[];
+  images: FileEntity[];
   description: string;
   tag: string[];
   backgroundColor?: string;
@@ -57,7 +58,7 @@ const CardLandingPage: React.FC<CardProps> = ({
         width: initialWidth,
         height: initialHeight,
         backgroundColor: "lightsalmon",
-        borderRadius: "15px",
+
         zoom: hovered ? "normal" : "initial",
         transition: "width 0.3s, height 0.3s",
       }}
@@ -71,11 +72,10 @@ const CardLandingPage: React.FC<CardProps> = ({
       <div
         style={{
           backgroundColor: "lightsalmon",
-          backgroundImage: `url(${images[imageIndex]})`, // Set the background image URL
+          backgroundImage: `url(${images[imageIndex]?.url})`, // Set the background image URL
           backgroundSize: "cover", // Adjust according to your needs
           backgroundPosition: "center", // Adjust according to your needs
           minHeight: "200px",
-          borderRadius: "15px 15px 15px 15px",
           display: "flex",
           alignItems: "end",
           padding: "15px",
@@ -141,7 +141,6 @@ const CardLandingPage: React.FC<CardProps> = ({
         style={{
           padding: 15,
           backgroundColor: "lightskyblue",
-          borderRadius: "0px 0px 15px 15px",
         }}
       >
         <h1
@@ -154,7 +153,10 @@ const CardLandingPage: React.FC<CardProps> = ({
         >
           {text}
         </h1>
-        <p style={{ textAlign: "left", color: "black" }}>{description}</p>
+        <p
+          style={{ textAlign: "left", color: "black" }}
+          dangerouslySetInnerHTML={{ __html: description ?? "" }}
+        ></p>
         <Button>Conheça {text}</Button>
       </div>
     </div>

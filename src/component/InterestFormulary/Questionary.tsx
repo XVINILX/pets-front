@@ -1,12 +1,13 @@
 import React from "react";
-import { QuestionType, ReadQuestionsDto } from "domain/entities/questions";
+
 import AddressQuestions from "./Address";
 import ContactQuestions from "./Contact";
 import EmailQuestions from "./Email";
 import { Form, Input } from "antd";
+import { QuestionDTO, QuestionType } from "domain/entities/Questions";
 
 export interface QuestionaryEditorProps {
-  questions: ReadQuestionsDto[];
+  questions: QuestionDTO[];
 }
 
 const InterestedQuestionaryPreview: React.FC<QuestionaryEditorProps> = ({
@@ -48,7 +49,7 @@ const InterestedQuestionaryPreview: React.FC<QuestionaryEditorProps> = ({
               case QuestionType["text"]:
                 return (
                   <div key={index}>
-                    <Form.Item name={"text"} label={question.label}>
+                    <Form.Item name={"text"} label={question.question}>
                       <Input></Input>
                     </Form.Item>
                   </div>

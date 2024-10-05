@@ -2,7 +2,7 @@ import { UserType } from "domain/entities/user";
 
 export interface LoginResponseDto {
   email: string;
-  token: string;
+  accessToken: string;
   userType: UserType;
   id: string;
 }

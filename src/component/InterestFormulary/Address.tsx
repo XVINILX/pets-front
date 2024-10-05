@@ -80,14 +80,14 @@ const AddressQuestions: React.FC<Props> = ({ form }) => {
       <Form.Item
         name={"city"}
         label="Cidade"
-        className="lg:w-1/2 w-full p-[0px] lg:pe-[10px]"
+        className="lg:w-1/2 w-full p-[0px] lg:ps-[10px]"
       >
         <Input disabled className="input-style"></Input>
       </Form.Item>
       <Form.Item
         name={"street"}
         label="Rua"
-        className="lg:w-1/2 w-full p-[0px] lg:ps-[10px]"
+        className="lg:w-1/2 w-full p-[0px] lg:pe-[10px]"
       >
         <Input disabled className="input-style"></Input>
       </Form.Item>
