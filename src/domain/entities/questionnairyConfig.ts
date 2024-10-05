@@ -10,6 +10,11 @@ export interface QuestionnairyConfigDTO {
   updatedAt: Date;
 }
 
+export interface ListQuestionnairyConfigDto {
+  total: number;
+  data: QuestionnairyConfigDTO[];
+}
+
 export interface CreateQuestionnairyConfigDTO {
   type: string;
   questions?: QuestionDTO[];

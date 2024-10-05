@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { List, Pagination, Input, Button } from "antd";
 import CardLandingPage from "component/Cards/CardLandingPage";
-import { getAllAnimals } from "services/animal.service";
+import { getAllAnimals, getAllAnimalsAuth } from "services/animal.service";
 import { Animal } from "domain/entities/Animals";
+import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
@@ -31,6 +32,8 @@ const mockData = [
 const PetsManagementPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [paginatedData, setPaginatedDate] = useState<Animal[]>();
@@ -42,7 +45,7 @@ const PetsManagementPage: React.FC = () => {
   useEffect(() => {
     const getAnimalList = async () => {
       try {
-        const animal = await getAllAnimals(itemsPerPage, currentPage, "");
+        const animal = await getAllAnimalsAuth(itemsPerPage, currentPage, "");
         setPaginatedDate(animal.data);
         setTotal(animal.total);
       } catch (error) {
@@ -53,7 +56,6 @@ const PetsManagementPage: React.FC = () => {
     getAnimalList();
   }, [currentPage]);
 
-  // Function to handle search input change
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setCurrentPage(1); // Reset to first page on search
@@ -68,7 +70,10 @@ const PetsManagementPage: React.FC = () => {
         gap: "25px",
       }}
     >
-      <Button style={{ alignSelf: "flex-end", width: "150px" }}>
+      <Button
+        style={{ alignSelf: "flex-end", width: "150px" }}
+        onClick={() => navigate("/user/novo-pet")}
+      >
         Novo PET
       </Button>
       <Search

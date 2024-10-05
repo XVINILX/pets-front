@@ -17,11 +17,32 @@ export const getAllAnimals = async (
   return response.data;
 };
 
+export const getAllAnimalsAuth = async (
+  items: number,
+  page: number,
+  search: string
+): Promise<ListAnimals> => {
+  const response = await callForApiClient.jsonService.get(
+    "/animals/list/auth",
+    {
+      params: { items, page, search },
+    }
+  );
+  return response.data;
+};
+
 export const getBreedsByType = async (
   type: string
 ): Promise<{ breeds: string[] }> => {
   const response = await callForApiClient.jsonService.get(
     `/animals/type=${type}`
+  );
+  return response.data;
+};
+
+export const getAnimalByIdAuth = async (id: string): Promise<Animal> => {
+  const response = await callForApiClient.jsonService.get(
+    `/animals/auth?id=${id}`
   );
   return response.data;
 };
