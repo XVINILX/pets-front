@@ -33,10 +33,9 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
       <Layout.Sider collapsible trigger={null} collapsed={collapsed}>
         <div style={{ padding: "20px 0px" }}>
           <img
-            src="https://i.pinimg.com/564x/64/f5/b5/64f5b5a730fb3a0701bfb0fc8032e5e8.jpg"
-            width="50px"
+            src="/logotipo.png"
             alt="Logo"
-            style={{ display: "block", margin: "0 auto" }}
+            style={{ height: "70px", objectFit: "contain" }} // Ajuste o tamanho da imagem conforme necessário
           />
         </div>
         <Menu
@@ -71,7 +70,7 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
       </Layout.Sider>
 
       <Layout>
-        <Layout.Header className="flex justify-between">
+        <Layout.Header className="flex justify-between align-center items-center">
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -83,6 +82,13 @@ const AuthenticatedLayout: React.FC<{ children: ReactNode }> = ({
               height: 64,
             }}
           />
+          <Tooltip title="Sair">
+            <VscSignOut
+              style={{ cursor: "pointer", color: "white" }}
+              size={"20px"}
+              onClick={() => logout()}
+            />
+          </Tooltip>
         </Layout.Header>
         <Layout.Content style={{ padding: 50 }}>{children}</Layout.Content>
         <Layout.Footer>Layout.Footer</Layout.Footer>

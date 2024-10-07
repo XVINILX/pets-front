@@ -32,8 +32,6 @@ export const loginEmployee = async (
 };
 
 export const refreshToken = async (): Promise<LoginResponseDto> => {
-  const response = await callForApiClient.jsonService.post(
-    "/auth/refresh-token"
-  );
+  const response = await callForApiClient.jsonService.get("/auth/me");
   return response.data;
 };

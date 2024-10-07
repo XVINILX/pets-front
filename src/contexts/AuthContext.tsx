@@ -32,8 +32,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const attToken = async () => {
       try {
         const response = await refreshToken();
-        setAuthUser(response);
-        if (response) setLoginCookie(response.accessToken);
+
+        if (response) return;
         else logout();
       } catch (error) {
         console.error(error);
@@ -41,22 +41,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     const { token: savedToken } = parseCookies();
-    console.log(savedToken);
+    
     if (savedToken) {
-      // attToken();
+      attToken();
       setToken(savedToken);
-    } else {
-      logout();
     }
   }, [token]);
 
   const login = (authUserReq: LoginResponseDto) => {
     setAuthUser(authUserReq);
-    console.log(authUserReq);
+
     setLoginCookie(authUserReq.accessToken);
   };
 
-  const setLoginCookie = (token: string) => {
+  const setLoginCookie = async (token: string) => {
     setToken(token);
     setCookie(null, "token", token, {
       maxAge: 30 * 24 * 60 * 60,
@@ -65,6 +63,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     callForApiClient.jsonService.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${token}`;
+
+    await refreshToken();
   };
 
   const logout = () => {

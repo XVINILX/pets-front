@@ -76,6 +76,10 @@ const LayoutLandingPage: React.FC<{ children: ReactNode }> = ({ children }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          position: "fixed",
+          zIndex: "9999",
+          width: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
         }}
         className="bg-skyblue"
       >
@@ -100,19 +104,11 @@ const LayoutLandingPage: React.FC<{ children: ReactNode }> = ({ children }) => {
           </>
         )}
         <>
-          <h1
-            style={{
-              fontFamily: "Montserrat",
-              fontWeight: 300,
-              fontSize: "25px",
-
-              color: "white",
-              textAlign: "left",
-            }}
-          >
-            Pet
-            <b style={{ fontWeight: 800 }}> Donations</b>
-          </h1>
+          <img
+            src="/logotipo.png"
+            alt="Logo"
+            style={{ height: "70px", objectFit: "contain" }} // Ajuste o tamanho da imagem conforme necessário
+          />
         </>
         {!isMobile && (
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -156,6 +152,7 @@ const LayoutLandingPage: React.FC<{ children: ReactNode }> = ({ children }) => {
           flexDirection: "column",
           justifyContent: "start",
           padding: "50px",
+          marginTop: "80px",
           alignItems: "center",
         }}
       >

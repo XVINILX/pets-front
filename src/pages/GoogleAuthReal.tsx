@@ -11,11 +11,11 @@ const AboutPage: React.FC = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    console.log(params);
+
     const token = params.get("accessToken");
     if (token) {
       setLoginCookie(token);
-      navigate("");
+      navigate("/");
     }
   }, [navigate]);
 
