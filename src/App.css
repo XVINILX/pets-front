@@ -104,3 +104,7 @@ body {
   background-color: transparent !important;
   outline: none;
 }
+
+h1 {
+  font-size: 20px !important;
+}

@@ -3,6 +3,7 @@ import { Form, Modal, Button as AntButton, Input, Button } from "antd";
 import { useAuth } from "contexts/AuthContext";
 import React from "react";
 import { loginAdminDto } from "services/authService";
+import { FcGoogle } from "react-icons/fc";
 
 interface ModalProps {
   setModalState: (value: boolean) => void;
@@ -43,13 +44,13 @@ const AdminAuth: React.FC<ModalProps> = ({ setModalState, isModalOpen }) => {
       onCancel={() => handleIsModalOpen(false)}
       footer={null}
       title="Faça Login!"
-      style={{ textAlign: "center", borderRadius: "0px" }} // Center modal content
+      style={{ textAlign: "center", borderRadius: "0px", gap: "25px" }} // Center modal content
     >
       <Form
         form={form}
         onFinish={handleFormSubmit}
         layout="vertical"
-        style={{ maxWidth: 400, margin: "0 auto" }} // Center form and set max width
+        style={{ maxWidth: 400, margin: "0 auto", gap: "25px" }} // Center form and set max width
       >
         <Form.Item
           name="email"
@@ -83,9 +84,14 @@ const AdminAuth: React.FC<ModalProps> = ({ setModalState, isModalOpen }) => {
             e.stopPropagation(); // Ensure it doesn't prevent click behavior
             redirectToServer();
           }}
+          style={{ width: "100%" }}
         >
+          <FcGoogle />
           Entrar com o Google
         </Button>
+        <a className="mt-[25px]" href="/mudar-senha">
+          Esqueci a senha
+        </a>
       </Form>
     </Modal>
   );

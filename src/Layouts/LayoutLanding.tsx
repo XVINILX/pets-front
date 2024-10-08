@@ -66,7 +66,7 @@ const LayoutLandingPage: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   return (
-    <Layout style={{ minHeight: "100vh" }} className="bg-white">
+    <Layout style={{ height: "100vh" }} className="bg-white">
       <AdminAuth
         isModalOpen={isModalOpen}
         setModalState={setIsModalOpen}

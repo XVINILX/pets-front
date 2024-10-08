@@ -90,7 +90,8 @@ const PetsManagementPage: React.FC = () => {
               text={item.name}
               images={item.imagesList}
               description={item.description}
-              tag={[item.type]}
+              tag={item.type}
+              url={`/pets/${item.slug}`}
             />
           </List.Item>
         )}

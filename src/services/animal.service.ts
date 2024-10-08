@@ -52,6 +52,13 @@ export const getAnimalById = async (id: string): Promise<Animal> => {
   return response.data;
 };
 
+export const getAnimalBySlug = async (slug: string): Promise<Animal> => {
+  const response = await callForApiClient.jsonService.get(
+    `/animals/slug=${slug}`
+  );
+  return response.data;
+};
+
 export const createAnimal = async (
   user: CreateAnimal
 ): Promise<CreateAnimal> => {

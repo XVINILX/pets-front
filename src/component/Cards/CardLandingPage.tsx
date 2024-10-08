@@ -1,7 +1,10 @@
 import { Button } from "antd";
+import AnimalTypeComponent from "component/AnimalType";
+import { AnimalType } from "domain/entities/Animals";
 import { FileEntity } from "domain/entities/file";
 import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 type TextAlign =
   | "left"
@@ -15,7 +18,8 @@ interface CardProps {
   text: string;
   images: FileEntity[];
   description: string;
-  tag: string[];
+  tag: AnimalType;
+  url: string;
   backgroundColor?: string;
   initialWidth?: number;
   hoveredWidth?: number;
@@ -48,9 +52,11 @@ const CardLandingPage: React.FC<CardProps> = ({
   initialHeight = 300,
   hoveredHeight = 310,
   textAlign = "center",
+  url,
 }) => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [imageIndex, setImageIndex] = useState<number>(0);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -72,9 +78,10 @@ const CardLandingPage: React.FC<CardProps> = ({
       <div
         style={{
           backgroundColor: "lightsalmon",
-          backgroundImage: `url(${images[imageIndex]?.url})`, // Set the background image URL
-          backgroundSize: "cover", // Adjust according to your needs
-          backgroundPosition: "center", // Adjust according to your needs
+          backgroundImage: `url(${images[imageIndex]?.url})`,
+
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           minHeight: "200px",
           display: "flex",
           alignItems: "end",
@@ -116,23 +123,8 @@ const CardLandingPage: React.FC<CardProps> = ({
               }}
             />
           </div>
-          <div style={{ display: "flex", justifyContent: "start" }}>
-            {tag.length
-              ? tag.map((value) => {
-                  return (
-                    <span
-                      style={{
-                        backgroundColor: "lightcyan",
-                        borderRadius: "5px",
-                        fontSize: "10px",
-                        padding: "5px",
-                      }}
-                    >
-                      {value}
-                    </span>
-                  );
-                })
-              : []}
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            <AnimalTypeComponent type={tag} iconProps={{ size: "20px" }} />
           </div>
         </div>
       </div>
@@ -157,7 +149,7 @@ const CardLandingPage: React.FC<CardProps> = ({
           style={{ textAlign: "left", color: "black" }}
           dangerouslySetInnerHTML={{ __html: description ?? "" }}
         ></p>
-        <Button>Conheça {text}</Button>
+        <Button onClick={() => navigate(url)}>Veja mais</Button>
       </div>
     </div>
   );

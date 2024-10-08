@@ -2,18 +2,18 @@ import { QuestionnairyConfigDTO } from "./questionnairyConfig";
 
 export interface QuestionDTO {
   id: string;
-  question: QuestionType;
-  type: string;
+  question: string;
+  type: QuestionType;
   order?: number;
   step?: number;
-  questionnairyConfig: QuestionnairyConfigDTO | null;
-  createdAt: Date;
-  updatedAt: Date;
+  questionnairyConfig?: QuestionnairyConfigDTO | null;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface CreateQuestionDTO {
   question: string;
-  type: string;
+  type: QuestionType;
   order?: number;
   step?: number;
   questionnairyConfigId?: string;
@@ -21,7 +21,7 @@ export interface CreateQuestionDTO {
 
 export interface UpdateQuestionDTO {
   question?: string;
-  type?: string;
+  type?: QuestionType;
   order?: number;
   step?: number;
   questionnairyConfigId?: string;

@@ -16,8 +16,29 @@ export const loginAdminDto = async (
   return response.data;
 };
 
+export const resetPassword = async (data: {
+  password: string;
+  confirmationPassword: string;
+  token: string;
+}): Promise<LoginResponseDto> => {
+  const response = await callForApiClient.jsonService.patch(
+    `/auth/reset-password/`,
+    data
+  );
+  return response.data;
+};
+
 export const loginGoogle = async (): Promise<LoginResponseDto> => {
   const response = await callForApiClient.jsonService.get(`/auth`);
+  return response.data;
+};
+
+export const sendRecoverEmail = async (
+  email: string
+): Promise<LoginResponseDto> => {
+  const response = await callForApiClient.jsonService.post(
+    `/auth/send-recover-email/${email}`
+  );
   return response.data;
 };
 
