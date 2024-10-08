@@ -19,6 +19,7 @@ import ResetPassword from "pages/ResetPassword";
 import ResetPasswordEmail from "pages/ResetPasswordEmail";
 import PetsDetails from "pages/PetsDetails";
 import Dashboard from "pages/Dashboard";
+import AbrigosDetails from "pages/AbrigosDetails";
 
 const AppRouter: React.FC = () => {
   const { isAuthenticated, authUser } = useAuth();
@@ -45,6 +46,7 @@ const AppRouter: React.FC = () => {
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/mudar-senha" element={<ResetPasswordEmail />} />
                   <Route path="/pets/:slug" element={<PetsDetails />} />
+                  <Route path="/abrigos/:slug" element={<AbrigosDetails />} />
                 </Routes>
               </LayoutLandingPage>
             }

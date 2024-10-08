@@ -17,6 +17,21 @@ export const getAllAnimals = async (
   return response.data;
 };
 
+export const getAllAnimalsCompanyId = async (
+  companyId: string,
+  items: number,
+  page: number,
+  search: string
+): Promise<ListAnimals> => {
+  const response = await callForApiClient.jsonService.get(
+    "/animals/list-by-companyId",
+    {
+      params: { items, page, search, companyId },
+    }
+  );
+  return response.data;
+};
+
 export const getAllAnimalsAuth = async (
   items: number,
   page: number,

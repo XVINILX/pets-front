@@ -23,6 +23,14 @@ export const getEnterpriseById = async (id: string): Promise<EnterpriseDTO> => {
   return response.data;
 };
 
+export const getEnterpriseBySlug = async (
+  slug: string
+): Promise<EnterpriseDTO> => {
+  const response = await callForApiClient.jsonService.get(
+    `/enterprise?slug=${slug}`
+  );
+  return response.data;
+};
 export const createEnterprise = async (
   user: CreateEnterpriseDTO
 ): Promise<CreateEnterpriseDTO> => {

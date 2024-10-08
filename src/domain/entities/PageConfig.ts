@@ -1,4 +1,5 @@
 import { UploadFile } from "antd";
+import { FileEntity } from "./file";
 
 export interface CreatePageConfigDTO {
   whatsApp: string;
@@ -41,9 +42,9 @@ export interface PageConfigDTO {
   instagram: string;
   facebook: string;
   donationLink: string;
-  backgroundImage: string;
+  backgroundImage: FileEntity;
   aboutMe: string;
-  avatarImage: string;
+  avatarImage: FileEntity;
   colorInfo: string;
   createdAt: Date;
   updatedAt: Date;
